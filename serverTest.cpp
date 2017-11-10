@@ -5,6 +5,7 @@
 #include <cstring>
 #include <unistd.h>
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
@@ -15,6 +16,8 @@ void error(char *msg){
 }
 
 int main(int argc, char *argv[]){
+	cout<<"main method entered"<<endl;
+
 	int sockfd; //file descriptor
 	int newsockfd; //file descriptor
 	int portno = 6789; //stores the port number in whic the server accepts connetions
@@ -103,22 +106,25 @@ int main(int argc, char *argv[]){
 	if(newsockfd < 0){
 		error("ERROR on accept");
 	}
+	cout << "accept success" <<endl;
 
 	//initializes the buffer using the bzero() function
 	bzero(buffer, 256);
 	//memset(buffer, 0, sizeof(buffer));
 	//WE NEED TO FIX THIS LATER
 
-	//reads from the socket
-	//the read method uses the new file descriptor
-	ret = read(newsockfd, buffer, 255);
-	if(ret < 0) error("ERROR reading from socket");
-	printf("Here is the message:%s\n", buffer);
+	/**IDK IF I SHOULD PUT WHILE(TRUE)**/
+	while(true){
+		//reads from the socket
+		//the read method uses the new file descriptor
+		ret = read(newsockfd, buffer, 255);
+		if(ret < 0) error("ERROR reading from socket");
+		printf("Here is the message:%s\n", buffer);
 
-	//write(int fd, const void *buffer, size_t size)
-	ret = write(newsockfd, "I got your message", 18);
-	if(ret < 0) error("ERROR writing to socket");
-
+		//write(int fd, const void *buffer, size_t size)
+		ret = write(newsockfd, "I got your message", 18);
+		if(ret < 0) error("ERROR writing to socket");
+	}
 
 	/***************EVERYTHING BELOW IS NOT AS NEEDED***********/
 	/**int connect(int fd, struct sockaddr *remote_host, socklen_t addr_length)*/
