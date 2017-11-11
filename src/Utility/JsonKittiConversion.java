@@ -24,10 +24,12 @@ public class JsonKittiConversion {
 
     private static File jsonRootFolder;
     private static File kittiOutputFolder;
-
+    
     private static String objectName = "Shoe";
-    private static String s1 = " 0.0 0 0.0 ", s2 = "0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0";
-
+    private static String s1 = " 0.0 0 0.0 ";
+    private static String s2 = "0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0";
+    
+    //constructor for the JsonKittiConversion
     public JsonKittiConversion (String inputPath, String outputPath){
         jsonRootFolder = new File(inputPath);
         kittiOutputFolder = new File(outputPath);
@@ -35,21 +37,28 @@ public class JsonKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	JsonKittiConversion main = new JsonKittiConversion("/Users/ethansoo/Desktop/Rectlabel-support-master/images_test/annotations",
-                "/Users/ethansoo/Desktop/Voc-Kitti");
+    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/2017 FRC Software/ObjectDetection/RectLabelTest/annotations",
+    			"/Users/work/Desktop/2017 FRC Software/ObjectDetection/RectLabelTest/kittiannotations");
         main.convertAllFiles();
     }
     
+    //converts all files to kitti
     public void convertAllFiles(){
-        File[] jsonFiles = jsonRootFolder.listFiles();
+        System.out.println(jsonRootFolder.isDirectory());
+    	File[] jsonFiles = jsonRootFolder.listFiles();
+        System.out.println(jsonFiles);
+        //for each file
         for(File json : jsonFiles){
-            if(json.toString().endsWith(".json")){
-                File kittiFile = new File(kittiOutputFolder.toString() + "/" + json.getName().substring(0, json.getName().indexOf(".json")) + "_kitti.txt");
+            //check if it is a json file
+        	if(json.toString().endsWith(".json")){
+                
+        		File kittiFile = new File(kittiOutputFolder.toString() + "/" + json.getName().substring(0, json.getName().indexOf(".json")) + ".txt");
                 write(json, kittiFile);
             }
         }
     }
-
+    
+    
     public void write(File jsonRootFile, File kittiOutputFile){
         try{
             InputStream is = new FileInputStream(jsonRootFile);
@@ -62,12 +71,15 @@ public class JsonKittiConversion {
 
             String input = "";
             String line = "";
+            
+            //writes the entire file into an input string
             while(true){
                 line = br.readLine();
                 if(line == null) break;
                 input += line;
             }
-
+            
+            //uses the convert method to ?????
             ArrayList<String> labels = convert(input);
             for(int i = 0; i<labels.size(); i++){
                 pw.println(labels.get(i));
@@ -84,12 +96,18 @@ public class JsonKittiConversion {
     private static ArrayList<String> convert(String input){
         ArrayList<String> labels = new ArrayList<String>();
         String keyWord = "x_y_w_h";
+        
+        //while the string input contains the keyword
         while(input.contains(keyWord)){
-
+        	
+        	//finds index of keyWord
             int labelIndex = input.indexOf(keyWord);
+            
+            //sets the input into the substring of the input
             input = input.substring(labelIndex + keyWord.length());
-
-            int i;
+            
+            
+            int i; //start index of digit 
             for(i = 0; i<input.length(); i++){
                 if(Character.isDigit(input.charAt(i))){
                     break;
@@ -97,24 +115,30 @@ public class JsonKittiConversion {
             }
 
 
-            int lastIndex;
+            int lastIndex; //last index of bounding box string
             for(lastIndex = i; lastIndex < input.length(); lastIndex++){
-                if(!(input.charAt(lastIndex) == ',' || Character.isDigit(input.charAt(lastIndex)) || input.charAt(lastIndex) == ' ')){
+                
+            	if(!(input.charAt(lastIndex) == ',' || 
+            			Character.isDigit(input.charAt(lastIndex)) || 
+            			input.charAt(lastIndex) == ' ')){
                     System.out.println("This character is " + input.charAt(lastIndex));
                     break;
                 }
             }
 
-
+            //takes the substring of the of where the bounding box is
             String coordinates = input.substring(i, lastIndex);
+            //uses the StringTokenizer to create tokens with characters
             StringTokenizer st = new StringTokenizer(coordinates, " ,");
 
             String label = objectName + s1;
             while(st.hasMoreElements()){
-                label += st.nextToken() + ".0 ";
+                
+            	label += st.nextToken() + ".0 ";
             }
+            
             labels.add(label + s2);
-
+            
             System.out.println("Point 4");
         }
 
