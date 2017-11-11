@@ -1,0 +1,28 @@
+{
+  "filename" : "serveimage.jpeg",
+  "folder" : "images_test",
+  "image_w_h" : [
+    936,
+    760
+  ],
+  "objects" : [
+    {
+      "label" : "shoes-right",
+      "x_y_w_h" : [
+        482,
+        334,
+        229,
+        356
+      ]
+    },
+    {
+      "label" : "shoes-right",
+      "x_y_w_h" : [
+        354,
+        454,
+        155,
+        262
+      ]
+    }
+  ]
+}

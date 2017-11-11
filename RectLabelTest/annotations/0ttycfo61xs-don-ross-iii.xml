@@ -1,0 +1,33 @@
+<annotation>
+    <folder>images_test</folder>
+    <filename>0ttycfo61xs-don-ross-iii.jpg</filename>
+    <size>
+        <width>600</width>
+        <height>400</height>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>shoes-y135-left</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>345</xmin>
+            <ymin>233</ymin>
+            <xmax>544</xmax>
+            <ymax>330</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>shoes-x45-y_45-z45-right</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>74</xmin>
+            <ymin>173</ymin>
+            <xmax>228</xmax>
+            <ymax>274</ymax>
+        </bndbox>
+    </object>
+</annotation>

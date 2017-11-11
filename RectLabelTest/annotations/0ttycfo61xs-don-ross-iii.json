@@ -1,0 +1,28 @@
+{
+  "filename" : "0ttycfo61xs-don-ross-iii.jpg",
+  "folder" : "images_test",
+  "image_w_h" : [
+    600,
+    400
+  ],
+  "objects" : [
+    {
+      "label" : "shoes-y135-left",
+      "x_y_w_h" : [
+        345,
+        233,
+        200,
+        98
+      ]
+    },
+    {
+      "label" : "shoes-x45-y_45-z45-right",
+      "x_y_w_h" : [
+        74,
+        173,
+        155,
+        102
+      ]
+    }
+  ]
+}
