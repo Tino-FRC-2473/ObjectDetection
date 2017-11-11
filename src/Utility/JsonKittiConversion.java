@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  *     String 2: The path to the empty output folder where the kitti files will gp
  */
 
-public class Main {
+public class JsonKittiConversion {
 
     private static File jsonRootFolder;
     private static File kittiOutputFolder;
@@ -28,14 +28,14 @@ public class Main {
     private static String objectName = "Shoe";
     private static String s1 = " 0.0 0 0.0 ", s2 = "0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0";
 
-    public Main(String inputPath, String outputPath){
+    public JsonKittiConversion (String inputPath, String outputPath){
         jsonRootFolder = new File(inputPath);
         kittiOutputFolder = new File(outputPath);
     }
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-        Main main = new Main("/Users/ethansoo/Desktop/Rectlabel-support-master/images_test/annotations",
+    	JsonKittiConversion main = new JsonKittiConversion("/Users/ethansoo/Desktop/Rectlabel-support-master/images_test/annotations",
                 "/Users/ethansoo/Desktop/Voc-Kitti");
         main.convertAllFiles();
     }
