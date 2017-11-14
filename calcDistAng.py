@@ -20,8 +20,8 @@ class GearDetector:
         
         #calc angle
         self.angle = -1
-        self.pinX = 0;
-        self.pinY = 0;
+        self.gearCenterX = 0;
+        self.gearCenterY = 0;
         self.pinDistToCenter = 0;
 
     ###########################################WE HAVE TO EDIT EVERYTHING BELOW THIS!!!!!!!!
@@ -33,39 +33,6 @@ class GearDetector:
         if(length > 0):
             return self.DIST_CONSTANT / length;
         return -1;
-
-
-
-    def getRectPos(self, y1, h1, y3, h2):
-        rectOnBottom = False
-        if(y1 < y3):
-            
-            if( ((y1 + h1) - (y3 + h2)) < (y3 - y1) ):
-                #deltaH = (y1 + h1) - (y3 + h2)
-                rectOnBottom = True
-            else:
-                #deltaH = y3 - y1
-                rectOnBottom = False
-
-
-            #lengthRight = h1 - 2 * deltaH
-            #print "deltaH: " + str(deltaH) + ", h1: " + str(h1)
-            #length = (h1 + lengthRight) / 2.0
-            #if(length == (h1 - deltaH)):
-            #print "length: " + str(length)
-            #else:
-            #    print "fail"
-        #if sec rect is higher
-        else:
-            #deltaH = y1 - y3
-            if( ((y3 + h2) - (y1 + h1)) < (y1 - y3) ):
-                #deltaH = (y3 + h2) - (y1 + h1)
-                rectOnBottom = True
-            else:
-                #deltaH = y1 - y3
-                rectOnBottom = False
-
-        return rectOnBottom
 
     #calculates the angle in degrees
     #we need to turn to be centered with the back of the board
@@ -92,3 +59,5 @@ class GearDetector:
         x = (x1 + x2 + x3 + x4) / 4.0;
         y = (y1 + y2 + y3 + y4) / 4.0;
         return (int(x), int(y))
+
+    def calcDistAng()
