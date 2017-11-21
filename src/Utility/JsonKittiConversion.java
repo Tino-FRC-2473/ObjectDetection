@@ -25,7 +25,7 @@ public class JsonKittiConversion {
     private static File jsonRootFolder;
     private static File kittiOutputFolder;
     
-    private static String objectName = "Shoe";
+    private static String objectName = "";
     private static String s1 = " 0.0 0 0.0 ";
     private static String s2 = "0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0";
     
@@ -95,16 +95,32 @@ public class JsonKittiConversion {
 
     private static ArrayList<String> convert(String input){
         ArrayList<String> labels = new ArrayList<String>();
-        String keyWord = "x_y_w_h";
+        String keyWord_label = "label";
+        String keyWord_dim = "x_y_w_h";
+        
+        
         
         //while the string input contains the keyword
-        while(input.contains(keyWord)){
+        while(input.contains(keyWord_label)){
+        	objectName = "";
+        	//finds index of keyWord_label
+        	int labelIndex = input.indexOf(keyWord_label);
+        	input = input.substring(labelIndex); 
         	
-        	//finds index of keyWord
-            int labelIndex = input.indexOf(keyWord);
+        	//System.out.println(input);
+        	System.out.println(input.indexOf('"') + 1);
+        	input = input.substring(input.indexOf('"') + 1);
+        	for(int i = input.indexOf('"') + 1; i < input.length(); i++){
+        		objectName+=input.charAt(i);
+        		if(input.charAt(i+1) == '"') break;
+        	}
+        	System.out.println(objectName);
+        	
+        	//finds index of keyWord_dim
+            int dimIndex = input.indexOf(keyWord_dim);
             
             //sets the input into the substring of the input
-            input = input.substring(labelIndex + keyWord.length());
+            input = input.substring(dimIndex + keyWord_dim.length());
             
             
             int i; //start index of digit 
