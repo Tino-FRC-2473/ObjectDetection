@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /*
@@ -37,8 +38,8 @@ public class JsonKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/2017 FRC Software/ObjectDetection/RectLabelTest/annotations",
-    			"/Users/work/Desktop/2017 FRC Software/ObjectDetection/RectLabelTest/kittiannotations");
+    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/Gear Images/annotations",
+    			"/Users/work/Desktop/Gear Images/kitti_annotations");
         main.convertAllFiles();
     }
     
@@ -123,15 +124,44 @@ public class JsonKittiConversion {
             input = input.substring(dimIndex + keyWord_dim.length());
             
             
-            int i; //start index of digit 
+            /*int i; //start index of digit 
             for(i = 0; i<input.length(); i++){
                 if(Character.isDigit(input.charAt(i))){
                     break;
                 }
+            }*/
+            
+
+            
+            ArrayList<Float> dimens = new ArrayList<Float>();
+            String num = "";
+            boolean prevIsChar = false;
+            for(int i = 0; i < input.length(); i++){
+            	if(dimens.size() == 4) break;
+            	
+            	if(Character.isDigit(input.charAt(i))){
+            		if(!prevIsChar){
+            			num = "";
+            			prevIsChar = true;
+            		}
+            		num+=input.charAt(i);
+            	}else if(prevIsChar){
+            		dimens.add((float) Integer.parseInt(num));
+            		prevIsChar = false;
+            	}
             }
+            
+            System.out.println(dimens.toString());
+            
+            //make the third value x2 instead of width
+            dimens.set(2, dimens.get(0)+dimens.get(2));
+            //make the fourth value y2 instead of height
+            dimens.set(3, dimens.get(1)+dimens.get(3));
+            
 
-
-            int lastIndex; //last index of bounding box string
+            System.out.println(dimens.toString());
+            
+            /*int lastIndex; //last index of bounding box string
             for(lastIndex = i; lastIndex < input.length(); lastIndex++){
                 
             	if(!(input.charAt(lastIndex) == ',' || 
@@ -145,16 +175,20 @@ public class JsonKittiConversion {
             //takes the substring of the of where the bounding box is
             String coordinates = input.substring(i, lastIndex);
             //uses the StringTokenizer to create tokens with characters
-            StringTokenizer st = new StringTokenizer(coordinates, " ,");
+            StringTokenizer st = new StringTokenizer(coordinates, " ,");*/
 
             String label = objectName + s1;
-            while(st.hasMoreElements()){
+            /*while(st.hasMoreElements()){
                 
             	label += st.nextToken() + ".0 ";
+            }*/
+            
+            for(float d:dimens){
+            	label+=d + " ";
             }
             
             labels.add(label + s2);
-            
+            System.out.println(labels);
             System.out.println("Point 4");
         }
 
