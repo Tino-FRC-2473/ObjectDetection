@@ -38,8 +38,8 @@ public class JsonKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/Gear Images/annotations",
-    			"/Users/work/Desktop/Gear Images/kitti_annotations");
+    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/Anottations/tanupa_annotations",
+    			"/Users/work/Desktop/Anottations/tanupa_kitti_annotations");
         main.convertAllFiles();
     }
     
