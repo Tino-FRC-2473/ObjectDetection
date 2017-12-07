@@ -38,8 +38,8 @@ public class JsonKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/Anottations/tanupa_annotations",
-    			"/Users/work/Desktop/Anottations/tanupa_kitti_annotations");
+    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/Gear Images/AnnotationsContributions/shruthi_annotations2380-2681",
+    			"/Users/work/Desktop/Gear Images/AnnotationsContributions/shruthi_kitti_annotations2380-2681");
         main.convertAllFiles();
     }
     
@@ -154,9 +154,9 @@ public class JsonKittiConversion {
             System.out.println(dimens.toString());
             
             //make the third value x2 instead of width
-            dimens.set(2, dimens.get(0)+dimens.get(2));
+            dimens.set(2, dimens.get(0)+dimens.get(2) - 1);
             //make the fourth value y2 instead of height
-            dimens.set(3, dimens.get(1)+dimens.get(3));
+            dimens.set(3, dimens.get(1)+dimens.get(3) - 1);
             
 
             System.out.println(dimens.toString());
