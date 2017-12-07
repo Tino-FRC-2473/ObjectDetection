@@ -19,10 +19,7 @@ class GearCalcDistAng:
 		self.ANGLE_CONST = (self.SCREEN_WIDTH / 2.0) / math.tan(self.FIELD_OF_VIEW_RAD / 2.0)
 		
 		#calc angle
-		self.angle = -1
-		self.gearCenterX = 0;
-		self.gearCenterY = 0;
-
+		self.angle = 404
 		#returns the left top and right bottom coordinates
 
 	
@@ -37,17 +34,25 @@ class GearCalcDistAng:
 			return self.DIST_CONSTANT / width
 		return -1;
 
+	#since the gear is round, the angles have to be averaged
+	def calcAngleDeg(self, x1, x2):
+		return (self.calcAngleDegPoint(x1) + self.calcAngleDegPoint(x2)) / 2
+
 	#calculates the angle in degrees
 	#we need to turn to be centered with the back of the board
-	def calcAngleDeg(self, gearCenterX):
-		return self.calcAngleRad(gearCenterX) * 180.0 / math.pi
+	def calcAngleDegPoint(self, x):
+		return self.calcAngleRadPoint(x) * 180.0 / math.pi
+
+	#since the gear is round, the angles have to be averaged
+	def calcAngleRad(self, x1, x2):
+		return (self.calcAngleRadPoint(x1) + self.calcAngleRadPoint(x2)) / 2
 
 	#calculates the angle in radians
 	#we need to turn to be centered with the back of the board
-	def calcAngleRad(self, gearCenterX):
+	def calcAngleRadPoint(self, x):
 		#if the peg is on the right side of the screen, POSITIVE
 		#peg on left side of screen, NEGATIVE
-		gearDistToCenter = (gearCenterX - self.SCREEN_WIDTH / 2)
+		gearDistToCenter = (x - self.SCREEN_WIDTH / 2)
 		#returns it in radians
 		return math.atan(gearDistToCenter / self.ANGLE_CONST)
 
@@ -64,11 +69,31 @@ class GearCalcDistAng:
 		return False
 
 
+	def computerInit(self, frame):
+		
+		oldwidth = self.SCREEN_WIDTH
+		self.SCREEN_HEIGHT, self.SCREEN_WIDTH = frame.shape[:2]
+
+		self.DIST_CONSTANT = 3234.375 * 11 / 5 * (23.75 / 21.96) * 2
+
+		self.ANGLE_CONST = (self.SCREEN_WIDTH / 2.0) / math.tan(self.FIELD_OF_VIEW_RAD / 2.0)
+
 
 	def runCV(self, camera):
+		#These are the values that the thing will return...
+		distance = -1
+		angle = 404
+		onedge = False
+
+
 		print "run in method"
 		_, frame = camera.read()
 		
+		if(frame != None):
+			self.computerInit(frame)
+
+		print str(frame.shape[:2])
+
 		#convert to hsv
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -83,7 +108,7 @@ class GearCalcDistAng:
 		# mask = maskLow + maskHigh
 
 		yellow = np.array([21.5, 201.25, 155.55])
-		low_yellow = np.array([11, 100, 100])
+		low_yellow = np.array([18, 100, 130])
 		high_yellow = np.array([32, 255, 255])
 		mask = cv2.inRange(hsv, low_yellow, high_yellow)
 
@@ -129,16 +154,35 @@ class GearCalcDistAng:
 
 			x1,x2 = mx,mx+mw
 			
-			print "Distance: " + str(self.calcDist(x1,x2))
-			print "Angle: " + str(self.calcAngleDeg((x1+x2)/2.0))
-			print "onEdge: " + str(self.onEdge(x1,x2))
+			distPerpendicular = self.calcDist(x1,x2)
+			angRad = self.calcAngleRad(x1, x2)
 
-		cv2.waitKey(30)
+			dist = distPerpendicular / math.cos(angRad)
+
+			angle = self.calcAngleDeg(x1, x2)
+
+			#print "Distance: " + str(self.calcDist(x1,x2))
+			#print "Angle: " + str(self.calcAngleDeg((x1+x2)/2.0))
+			#print "onEdge: " + str(self.onEdge(x1,x2))
+			#print "length: " + str(mw)
+
+			onedge = self.onEdge(x1,x2)
+
+			cv2.putText(frame, "Distance: " + str(distPerpendicular), (0, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+			cv2.putText(frame, "Angle: " + str(angle), (0, 100), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+			cv2.putText(frame, "onEdge: " + str(onedge), (0, 150), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+			#cv2.putText(frame, "length: " + str(mw), (0,200), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+			cv2.putText(frame, "L: " + str(dist), (0,250), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+
+			distance = distPerpendicular
+
+		cv2.waitKey(3)
 		cv2.imshow("Frame", frame)
+		return distance, angle, onedge
 
 foo = GearCalcDistAng()
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(1)
 while True:
 	foo.runCV(camera)
-	print "run"
+	
 
