@@ -28,7 +28,7 @@ class GearCalcDistAng:
     
     #calculates the distance to the center of the gear
     #+/- about an inch depending on the case
-    def calcDist(self, x1, x2): #the length of the rectangle
+	def calcDist(self, x1, x2): #the length of the rectangle
         #the distance and size is inversely proportional
         #uses formula dist * rectSize = constant
         width = math.fabs(x1-x2)

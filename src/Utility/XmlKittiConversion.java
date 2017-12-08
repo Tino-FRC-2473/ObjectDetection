@@ -98,8 +98,8 @@ public class XmlKittiConversion {
     private static ArrayList<String> convert(String input){
         ArrayList<String> labels = new ArrayList<String>();
         String keyWord_label = "<name>";
-        String keyWord_dim = "<bnbbox>";
-        
+        String keyWord_dim = "<bndbox>";
+        String keyWord_endDim = "</bndbox>";
         
         
         //while the string input contains the keyword
@@ -117,18 +117,27 @@ public class XmlKittiConversion {
             int dimIndex = input.indexOf(keyWord_dim);
             
             //sets the input into the substring of the input
-            input = input.substring(dimIndex + keyWord_dim.length());
             
-            //.
             
-            int i; //start index of digit 
-            for(i = 0; i<input.length(); i++){
-                if(Character.isDigit(input.charAt(i))){
-                    break;
-                }
-            }
-
-
+            //Ethan's attempted code *****
+//            input = input.substring(dimIndex + keyWord_dim.length());
+//            
+//            //.
+//            labelIndex = input.indexOf(keyWord_endDim); 
+//            
+//            String x1 = input.substring(input.indexOf("<xmin>") + 1, input.indexOf("</xmin>")); 
+//            String y1 = input.substring(input.indexOf("<ymin>") + 1, input.indexOf("</ymin>")); 
+//            String x2 = input.substring(input.indexOf("<xmax>") + 1, input.indexOf("</xmax>")); 
+//            String y2 = input.substring(input.indexOf("<ymax>") + 1, input.indexOf("</ymax>")); 
+//            
+//            labels.add(x1 + ".0");
+//            labels.add(y1 + ".0");
+//            labels.add(x2 + ".0");
+//            labels.add(y2 + ".0");
+// *****
+            
+            
+            
             /*int lastIndex; //last index of bounding box string
             for(lastIndex = i; lastIndex < input.length(); lastIndex++){
                 

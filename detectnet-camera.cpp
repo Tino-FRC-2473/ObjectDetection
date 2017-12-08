@@ -39,14 +39,14 @@
 #define DEFAULT_CAMERA -1	// -1 for onboard camera, or change to index of /dev/video V4L2 camera (>=0)
 
 
-bool signal_recieved = false;
+bool signal_received = false;
 
 void sig_handler(int signo)
 {
 	if( signo == SIGINT )
 	{
 		printf("received SIGINT\n");
-		signal_recieved = true;
+		signal_received = true;
 	}
 }
 
@@ -168,7 +168,7 @@ int main( int argc, char** argv )
 	 */
 	float confidence = 0.0f;
 
-	while( !signal_recieved )
+	while( !signal_received )
 	{
 		void* imgCPU  = NULL;
 		void* imgCUDA = NULL;
