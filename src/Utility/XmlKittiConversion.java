@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 /*
  * Instructions:
@@ -29,7 +28,7 @@ public class XmlKittiConversion {
     private static String s1 = " 0.0 0 0.0 ";
     private static String s2 = "0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0";
     
-    //constructor for the JsonKittiConversion
+    //constructor for the XmlKittiConversion
     public XmlKittiConversion (String inputPath, String outputPath){
         xmlRootFolder = new File(inputPath);
         kittiOutputFolder = new File(outputPath);
@@ -37,8 +36,8 @@ public class XmlKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	XmlKittiConversion main = new XmlKittiConversion("/Users/work/Desktop/3035-3067/annotations",
-    			"/Users/work/Desktop/3035-3067/kitti_annotations3035-3067");
+    	XmlKittiConversion main = new XmlKittiConversion("/Users/work/Desktop/EthansXMLstuff",
+    			"/Users/work/Desktop/annotations_101");
         main.convertAllFiles();
     }
     
@@ -99,7 +98,11 @@ public class XmlKittiConversion {
         ArrayList<String> labels = new ArrayList<String>();
         String keyWord_label = "<name>";
         String keyWord_dim = "<bndbox>";
+<<<<<<< HEAD
         String keyWord_endDim = "</bndbox>";
+=======
+        
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
         
         
         //while the string input contains the keyword
@@ -116,9 +119,15 @@ public class XmlKittiConversion {
         	//finds index of keyWord_dim
             int dimIndex = input.indexOf(keyWord_dim);
             
+            
             //sets the input into the substring of the input
             
+<<<<<<< HEAD
+=======
+            System.out.println(input.substring(0,5));
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
             
+<<<<<<< HEAD
             //Ethan's attempted code *****
 //            input = input.substring(dimIndex + keyWord_dim.length());
 //            
@@ -154,17 +163,25 @@ public class XmlKittiConversion {
             //uses the StringTokenizer to create tokens with characters
             StringTokenizer st = new StringTokenizer(coordinates, " ,");
 
+=======
+            ArrayList<Float> dimens = new ArrayList<Float>();
+            
+            dimens.add((float) Integer.parseInt(itemInsideTags(input, "xmin")));
+            dimens.add((float) Integer.parseInt(itemInsideTags(input, "ymin")));
+            dimens.add((float) Integer.parseInt(itemInsideTags(input, "xmax")));
+            dimens.add((float) Integer.parseInt(itemInsideTags(input, "ymax")));
+            
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
             String label = objectName + s1;
-            while(st.hasMoreElements()){
-                
-            	label += st.nextToken() + ".0 ";
+            
+            for(float d:dimens){
+            	label+=d + " ";
             }
             
             labels.add(label + s2);
-            
-            System.out.println("Point 4");*/
         }
-
+        
+        System.out.println(labels);
         //System.out.println("Point 5");
         return labels;
     }
@@ -175,6 +192,13 @@ public class XmlKittiConversion {
     	int start = tagged.indexOf('>') + 1;
     	int end = tagged.indexOf('<', start);
     	
+    	
+    	return tagged.substring(start, end);
+    }
+    
+    private static String itemInsideTags(String tagged, String label){
+    	int start = tagged.indexOf("<" + label + ">") + label.length() + 2;
+    	int end = tagged.indexOf("</" + label + ">");
     	
     	return tagged.substring(start, end);
     }
