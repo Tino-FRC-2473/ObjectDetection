@@ -23,6 +23,18 @@ class GearCalcDistAng:
 		#returns the left top and right bottom coordinates
 
 	
+	def calcRadiusTest(self, x1, x2):
+		distToCenterX1 = x1 - self.SCREEN_WIDTH / 2.0
+		distToCenterX2 = x2 - self.SCREEN_WIDTH / 2.0
+
+		angleX1 = calcAngleRad(self, x1)
+		angleX2 = calcAngleRad(self, x2)
+
+		r = math.fabs(distToCenterX1 - distToCenterX2) / (1/math.cos(angleX1) + 1/math.cos(angleX2))
+
+		return r
+
+
 	#calculates the distance to the center of the gear
 	#+/- about an inch depending on the case
 	def calcDist(self, x1, x2):#the length of the rectangle
@@ -181,7 +193,7 @@ class GearCalcDistAng:
 		return distance, angle, onedge
 
 foo = GearCalcDistAng()
-camera = cv2.VideoCapture(1)
+camera = cv2.VideoCapture(0)
 while True:
 	foo.runCV(camera)
 	
