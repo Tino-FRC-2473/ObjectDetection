@@ -98,7 +98,11 @@ public class XmlKittiConversion {
         ArrayList<String> labels = new ArrayList<String>();
         String keyWord_label = "<name>";
         String keyWord_dim = "<bndbox>";
+<<<<<<< HEAD
+        String keyWord_endDim = "</bndbox>";
+=======
         
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
         
         
         //while the string input contains the keyword
@@ -117,10 +121,49 @@ public class XmlKittiConversion {
             
             
             //sets the input into the substring of the input
-            input = input.substring(dimIndex + keyWord_dim.length());
             
+<<<<<<< HEAD
+=======
             System.out.println(input.substring(0,5));
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
             
+<<<<<<< HEAD
+            //Ethan's attempted code *****
+//            input = input.substring(dimIndex + keyWord_dim.length());
+//            
+//            //.
+//            labelIndex = input.indexOf(keyWord_endDim); 
+//            
+//            String x1 = input.substring(input.indexOf("<xmin>") + 1, input.indexOf("</xmin>")); 
+//            String y1 = input.substring(input.indexOf("<ymin>") + 1, input.indexOf("</ymin>")); 
+//            String x2 = input.substring(input.indexOf("<xmax>") + 1, input.indexOf("</xmax>")); 
+//            String y2 = input.substring(input.indexOf("<ymax>") + 1, input.indexOf("</ymax>")); 
+//            
+//            labels.add(x1 + ".0");
+//            labels.add(y1 + ".0");
+//            labels.add(x2 + ".0");
+//            labels.add(y2 + ".0");
+// *****
+            
+            
+            
+            /*int lastIndex; //last index of bounding box string
+            for(lastIndex = i; lastIndex < input.length(); lastIndex++){
+                
+            	if(!(input.charAt(lastIndex) == ',' || 
+            			Character.isDigit(input.charAt(lastIndex)) || 
+            			input.charAt(lastIndex) == ' ')){
+                    System.out.println("This character is " + input.charAt(lastIndex));
+                    break;
+                }
+            }
+
+            //takes the substring of the of where the bounding box is
+            String coordinates = input.substring(i, lastIndex);
+            //uses the StringTokenizer to create tokens with characters
+            StringTokenizer st = new StringTokenizer(coordinates, " ,");
+
+=======
             ArrayList<Float> dimens = new ArrayList<Float>();
             
             dimens.add((float) Integer.parseInt(itemInsideTags(input, "xmin")));
@@ -128,6 +171,7 @@ public class XmlKittiConversion {
             dimens.add((float) Integer.parseInt(itemInsideTags(input, "xmax")));
             dimens.add((float) Integer.parseInt(itemInsideTags(input, "ymax")));
             
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
             String label = objectName + s1;
             
             for(float d:dimens){
