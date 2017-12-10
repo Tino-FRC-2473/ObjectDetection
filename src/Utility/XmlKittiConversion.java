@@ -36,8 +36,8 @@ public class XmlKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	XmlKittiConversion main = new XmlKittiConversion("/Users/work/Desktop/1739-2057_ethan_annotations",
-    			"/Users/work/Desktop/1739-2057_ethan_kitti_annotations");
+    	XmlKittiConversion main = new XmlKittiConversion("/Users/work/Desktop/EthansXMLstuff",
+    			"/Users/work/Desktop/annotations_101");
         main.convertAllFiles();
     }
     
@@ -100,6 +100,7 @@ public class XmlKittiConversion {
         String keyWord_dim = "<bndbox>";
         
         
+        
         //while the string input contains the keyword
         while(input.contains(keyWord_label)){
         	objectName = "";
@@ -116,8 +117,10 @@ public class XmlKittiConversion {
             
             
             //sets the input into the substring of the input
+            input = input.substring(dimIndex + keyWord_dim.length());
             
             System.out.println(input.substring(0,5));
+            
             ArrayList<Float> dimens = new ArrayList<Float>();
             
             dimens.add((float) Integer.parseInt(itemInsideTags(input, "xmin")));
