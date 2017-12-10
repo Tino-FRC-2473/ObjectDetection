@@ -33,8 +33,18 @@ class GearCalcDistAng:
 		distToCenterX1 = x1 - self.SCREEN_WIDTH / 2.0
 		distToCenterX2 = x2 - self.SCREEN_WIDTH / 2.0
 
+<<<<<<< HEAD
+    
+    #calculates the distance to the center of the gear
+    #+/- about an inch depending on the case
+	def calcDist(self, x1, x2): #the length of the rectangle
+        #the distance and size is inversely proportional
+        #uses formula dist * rectSize = constant
+        width = math.fabs(x1-x2)
+=======
 		angleX1 = calcAngleRad(self, x1)
 		angleX2 = calcAngleRad(self, x2)
+>>>>>>> branch '2018' of https://github.com/Tino-FRC-2473/ObjectDetection.git
 
 		r = math.fabs(distToCenterX1 - distToCenterX2) / (1/math.cos(angleX1) + 1/math.cos(angleX2))
 

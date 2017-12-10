@@ -75,7 +75,7 @@ int main(int argc, char *argv[]){
 
 
 	/**int bind(int fd, struct soccaddr *local_addr, socklen_t addr_length) */
-	//want to associate that socket with a port on machine. The port is used by the kernal to match the packet with the socket descriptor
+	//want to associate that socket with a port on machine. The port is used by the kernel to match the packet with the socket descriptor
 	//call bind with the address of the local host and the port on which it will listen for connections
 	//take file descriptor from socket()
 	//returns 0 on success and -1 on fail
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]){
 	/**int accept(int fd, struc sockaddr *remote_host, socklen_t addr_length)*/
 	//accepts a connection on a bound socket and writes the connecting client's address info
 	//creates a new socket (not in listening state) original socket is not affected
-	//returns a new socket file descriptor for accepeted for the accepted connection or -1 for error
+	//returns a new socket file descriptor for accepted for the accepted connection or -1 for error
 	//original file descriptor used to accept new connections
 	//new file descriptor used to communicate with connected client
 	clientAddressLength = sizeof(client_address);
