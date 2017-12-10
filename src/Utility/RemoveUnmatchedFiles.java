@@ -14,8 +14,8 @@ public class RemoveUnmatchedFiles {
 	private ArrayList<String> fileValNames;
 	
 	public static void main (String args[]){
-		String dir1 = "/Users/work/Desktop/GearImagesForModel/trim"; //has extra files
-		String dir2 = "/Users/work/Desktop/GearImagesForModel/trlab";
+		String dir1 = "/Users/work/Desktop/test/Missing_GearPics1/3035-3067_1"; 
+		String dir2 = "/Users/work/Desktop/test/Missing_Kitti_Annotations1/kitti_annotations3035-3067_1";
 		RemoveUnmatchedFiles sys = new RemoveUnmatchedFiles(dir1, dir2);
 		//sys.deleteUnmatchedFile();
 		System.out.println(sys.findUnmatchedFiles().toString());
@@ -42,8 +42,8 @@ public class RemoveUnmatchedFiles {
 			fileValNames.add(fileName);
 		}
 		
-		System.out.println(fileExtraNames.toString());
-		System.out.println(fileValNames.toString());
+		//System.out.println(fileExtraNames.toString());
+		//System.out.println(fileValNames.toString());
 	}
 	
 	public String findUnmatchedFiles(){
@@ -82,14 +82,18 @@ public class RemoveUnmatchedFiles {
 		//loop through index arrays to make a string
 		for(int i = 0; i < unmatchedExtraIndex.size(); i++){
 			int unmatchedFileIndex = unmatchedExtraIndex.get(i);
-			terminalText+=dirExtra[unmatchedFileIndex].getPath() + " ";
+			String pathName = dirExtra[unmatchedFileIndex].getPath();
+			terminalText+= pathName + " ";
 		}
 		
 		for(int i = 0; i < unmatchedValIndex.size(); i++){
 			int unmatchedFileIndex = unmatchedValIndex.get(i);
-			terminalText+=dirVal[unmatchedFileIndex].getAbsolutePath() + " ";
+			String pathName = dirVal[unmatchedFileIndex].getAbsolutePath();
+			terminalText+= pathName + " ";
 		}
 		
+		System.out.println(unmatchedExtra.toString());
+		System.out.println(unmatchedVal.toString());
 		return terminalText;
 		//return unmatchedExtra;
 	}

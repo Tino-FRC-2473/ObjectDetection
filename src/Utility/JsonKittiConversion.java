@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
 /*
  * Instructions:
  * 
@@ -38,8 +39,8 @@ public class JsonKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/Gear Images/AnnotationsContributions/shruthi_annotations2380-2681",
-    			"/Users/work/Desktop/Gear Images/AnnotationsContributions/shruthi_kitti_annotations2380-2681");
+    	JsonKittiConversion main = new JsonKittiConversion("/Users/work/Desktop/tanupa_annotations_1503-1735",
+    			"/Users/work/Desktop/tanupa_kitti_annotations_1503-1735");
         main.convertAllFiles();
     }
     
