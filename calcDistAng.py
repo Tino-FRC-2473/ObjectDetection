@@ -23,12 +23,6 @@ class GearCalcDistAng:
 		#returns the left top and right bottom coordinates
 
 	
-	#UNTESTED. theoretically calculates the distance for round objects like the gear
-	def calcDistRound(self, x1, x2):
-		radius = self.calcRadiusTest(x1, x2)
-		return self.calcDist(self, 0, 2*radius)
-	
-	#UNTESTED. calculates the radius for round object given x1 and x2
 	def calcRadiusTest(self, x1, x2):
 		distToCenterX1 = x1 - self.SCREEN_WIDTH / 2.0
 		distToCenterX2 = x2 - self.SCREEN_WIDTH / 2.0
@@ -50,13 +44,6 @@ class GearCalcDistAng:
 
 		return r
 
-	#SOMEWHAT TESTED calculated the distance to the gear but is very sketchy
-	def calDistGearSketch(self, x1, x2):
-		distPerpendicular = self.calcDist(x1,x2)
-		angRad = self.calcAngleRad(x1, x2)
-
-		return distPerpendicular / math.cos(angRad)
-
 
 	#calculates the distance to the center of the gear
 	#+/- about an inch depending on the case
@@ -68,9 +55,6 @@ class GearCalcDistAng:
 		if(width > 0):
 			return self.DIST_CONSTANT / width
 		return -1;
-
-	"""def calcDist(self, width):
-		return self.DIST_CONSTANT / width"""
 
 	#since the gear is round, the angles have to be averaged
 	def calcAngleDeg(self, x1, x2):
