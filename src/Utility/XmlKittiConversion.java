@@ -36,8 +36,8 @@ public class XmlKittiConversion {
 
     public static void main(String[] args){
     	// Replace the code here with the paths to the folders on your computer
-    	XmlKittiConversion main = new XmlKittiConversion("/Users/work/Desktop/EthansXMLstuff",
-    			"/Users/work/Desktop/annotations_101");
+    	XmlKittiConversion main = new XmlKittiConversion("/Users/work/Desktop/tanupa_annotations_1503-1735",
+    			"/Users/work/Desktop/testingXML");
         main.convertAllFiles();
     }
     

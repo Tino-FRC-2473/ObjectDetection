@@ -14,11 +14,15 @@ public class RemoveUnmatchedFiles {
 	private ArrayList<String> fileValNames;
 	
 	public static void main (String args[]){
-		String dir1 = "/Users/work/Desktop/test/Missing_GearPics1/3035-3067_1"; 
-		String dir2 = "/Users/work/Desktop/test/Missing_Kitti_Annotations1/kitti_annotations3035-3067_1";
+		String dir1 = "/Users/work/Desktop/1257-1674/1600s/"; 
+		String dir2 = "/Users/work/Desktop/1257-1674/1600s/LabelData";
 		RemoveUnmatchedFiles sys = new RemoveUnmatchedFiles(dir1, dir2);
 		//sys.deleteUnmatchedFile();
 		System.out.println(sys.findUnmatchedFiles().toString());
+		
+		//System.out.println(sys.addSpaceEscapeCommand("i like pie yay more 1408sn "));
+		//System.out.println(sys.addSpaceEscapeCommand(" blah  blah   blah  "));
+		//System.out.println(sys.addSpaceEscapeCommand("nospacesinthistext"));
 	}
 
 	//input 2 strings
@@ -32,8 +36,11 @@ public class RemoveUnmatchedFiles {
 		
 		for(File extra: this.dirExtra){
 			String fileName = extra.getName();
-			fileName = fileName.substring(0, fileName.indexOf('.'));
-			fileExtraNames.add(fileName);
+			if(fileName.indexOf('.') != -1){
+				fileName = fileName.substring(0, fileName.indexOf('.'));
+				//since we do not want to remove folders :)
+				fileExtraNames.add(fileName);
+			}
 		}
 		
 		for(File val: this.dirVal){
@@ -83,12 +90,21 @@ public class RemoveUnmatchedFiles {
 		for(int i = 0; i < unmatchedExtraIndex.size(); i++){
 			int unmatchedFileIndex = unmatchedExtraIndex.get(i);
 			String pathName = dirExtra[unmatchedFileIndex].getPath();
+			if(pathName.contains(" ")){
+				pathName = addSpaceEscapeCommand(pathName);
+			}
+			
 			terminalText+= pathName + " ";
 		}
 		
 		for(int i = 0; i < unmatchedValIndex.size(); i++){
 			int unmatchedFileIndex = unmatchedValIndex.get(i);
 			String pathName = dirVal[unmatchedFileIndex].getAbsolutePath();
+			
+			if(pathName.contains(" ")){
+				pathName = addSpaceEscapeCommand(pathName);
+			}
+			
 			terminalText+= pathName + " ";
 		}
 		
@@ -96,6 +112,17 @@ public class RemoveUnmatchedFiles {
 		System.out.println(unmatchedVal.toString());
 		return terminalText;
 		//return unmatchedExtra;
+	}
+	
+	public String addSpaceEscapeCommand(String path){
+		
+		int spaceIndex = path.indexOf(' ');
+		while(spaceIndex != -1){
+			path = path.substring(0, spaceIndex) + "\\" + path.substring(spaceIndex);
+			spaceIndex = path.indexOf(' ', spaceIndex + 2);
+		}
+		
+		return path;
 	}
 	
 	
