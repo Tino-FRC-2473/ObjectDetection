@@ -14,8 +14,8 @@ public class RemoveUnmatchedFiles {
 	private ArrayList<String> fileValNames;
 	
 	public static void main (String args[]){
-		String dir1 = "/Users/work/Desktop/1257-1674/1600s/"; 
-		String dir2 = "/Users/work/Desktop/1257-1674/1600s/LabelData";
+		String dir1 = "/Users/work/Desktop/Tanupa DontCare 176-200/"; 
+		String dir2 = "/Users/work/Desktop/Tanupa DontCare 176-200/LabelData";
 		RemoveUnmatchedFiles sys = new RemoveUnmatchedFiles(dir1, dir2);
 		//sys.deleteUnmatchedFile();
 		System.out.println(sys.findUnmatchedFiles().toString());
