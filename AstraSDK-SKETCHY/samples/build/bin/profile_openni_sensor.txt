@@ -1,0 +1,10 @@
+sorted list                                                    calls       self time      total time
+<unprofiled>                                                     1.0      9 ms   34%     35 ms  134%
+init_openni                                                      1.0     26 ms  100%     26 ms  100%
+~oni_adapter_plugin                                              1.0      0 ns    0%      0 ns    0%
+
+call tree                                                      calls       self time      total time
+<unprofiled>                                                     1.0      9 ms   34%     35 ms  134%
+  init_openni                                                    1.0     26 ms  100%     26 ms  100%
+  ~oni_adapter_plugin                                            1.0      0 ns    0%      0 ns    0%
+

@@ -1,0 +1,9 @@
+Do not go in samples/stfl/blahblahblah and do stuff there because that just does not work
+
+Try putting the main.cpp file into the large Astra folder
+
+Maybe trying
+
+g++ -std=c++11 -g main.cpp -I/home/orbbec/astra/include -L/home/orbbec/astra/build/lib/ -lastra -lastra_core -lastra_core_api 
+
+Would make it compile?
